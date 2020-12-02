@@ -9,10 +9,12 @@ class LinkedList {
 function findLoop(head) {
   let singleHop = head.next;
   let dubHop = head.next.next;
+  // go until nodes pointers point at the same node
   while (singleHop !== dubHop) {
     singleHop = singleHop.next;
     dubHop = dubHop.next.next;
   }
+  // set one node to the beginning
   singleHop = head;
   while (singleHop !== dubHop) {
     singleHop = singleHop.next;
