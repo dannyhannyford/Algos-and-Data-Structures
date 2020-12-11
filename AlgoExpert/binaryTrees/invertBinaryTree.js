@@ -19,6 +19,7 @@ function invertBinaryTree(tree) {
     let queue = [tree];
     while (queue.length > 0) {
         let curr = queue.shift();
+        // forgot to check for null
         if (curr === null) continue;
         let temp =  curr.left;
         curr.left = curr.right;
@@ -26,7 +27,8 @@ function invertBinaryTree(tree) {
         store.push(curr.left, curr.right);
     }
     return tree;
-  }
+}
+  // T-O(n) S-O(n)
 
 // This is the class of the input binary tree.
 class BinaryTree {
