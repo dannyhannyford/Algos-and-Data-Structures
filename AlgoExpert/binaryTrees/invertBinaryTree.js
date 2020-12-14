@@ -24,7 +24,7 @@ function invertBinaryTree(tree) {
         let temp =  curr.left;
         curr.left = curr.right;
         curr.right = temp;
-        store.push(curr.left, curr.right);
+        queue.push(curr.left, curr.right);
     }
     return tree;
 }
