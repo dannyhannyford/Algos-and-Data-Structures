@@ -31,7 +31,23 @@ function dijkstrasAlgorithm(start, edges) {
       }
     }
   }
-  return minDistances.map((x) => (x === Infinity ? -1 : x));
+  return minDistances.map((x) => (x === Infinity ? -1 : x)); 
+}
+
+const getVertexWithMinDistance = (distances, visited) => {
+  let currentMinDistance = Infinity;
+  let vertext = -1;
+
+  for (const [vertexIdx, distance] of distances.entries()) {
+    if (visited.has(vertexIdx)) {
+      continue;
+    }
+    if (distance <= currentMinDistance) {
+      vertext = vertexIdx;
+      currentMinDistance = distance;
+    }
+  }
+  return [vertex, currentMinDistance];
 }
 // T- O() S- O()
 
