@@ -6,6 +6,7 @@ class LinkedList {
 }
 
 function removeDuplicatesFromLinkedList(linkedList) {
+  // this is does not duplicate the linked list
   let curr = linkedList;
   while (curr !== null) {
     let nextNode = curr.next;
