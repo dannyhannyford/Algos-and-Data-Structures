@@ -1,1 +1,1 @@
-# Whiteboard algorithms/datastructures from leetcode, Algo Expert, and HackerRank
+# Whiteboard algorithms/data structures from leetcode, Algo Expert, and HackerRank
