@@ -1,16 +1,16 @@
 function invertBinaryTree(tree) {
-    // recursive
-    if (tree === null) {
-        return;
-    }
-    let temp = tree.right;
-    tree.right = tree.left;
-    tree.left = temp;
+  if (tree === null) {
+    return;
+  }
+  swap(tree);
+  invertBinaryTree(tree.left);
+  invertBinaryTree(tree.right);
+}
 
-    invertBinaryTree(tree.left);
-    invertBinaryTree(tree.right);
-    
-    return tree;
+function swap(tree) {
+const left = tree.left;
+tree.left = tree.right;
+tree.right = left;
 }
 // T-O(n) S-O(depth)
 
