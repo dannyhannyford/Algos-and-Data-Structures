@@ -7,6 +7,42 @@ class LinkedList {
 }
 
 function removeKthNodeFromEnd(head, k) {
+	// edge case
+		// if node to remove === head node
+			// head node .value && next === null
+	let leadNode = head;
+	let nodeToRemove = head;
+	let dummy = new LinkedList(null);
+	dummy.next = head;
+	while(k > 1) {
+		leadNode = leadNode.next;
+		k -= 1;
+	}
+	while(leadNode.next !== null) {
+		leadNode = leadNode.next;
+		nodeToRemove = nodeToRemove.next;
+		dummy = dummy.next;
+	}
+	if(nodeToRemove === head) {
+		// head.value = null;
+		head.value = head.next.value;
+		head.next = head.next.next;
+	} else {
+		dummy.next = nodeToRemove.next;
+	}
+	
+}
+// mutate value/next of head
+// no return
+// at least 2 nodes
+// at least k nodes
+// amount of nodes === k
+
+// Do not edit the lines below.
+exports.LinkedList = LinkedList;
+exports.removeKthNodeFromEnd = removeKthNodeFromEnd;
+
+function removeKthNodeFromEnd(head, k) {
 	let leadNode = head;
   let preK = head;
   let counter = 1;
