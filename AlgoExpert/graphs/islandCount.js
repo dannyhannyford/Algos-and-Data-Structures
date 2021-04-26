@@ -45,21 +45,21 @@ var numIslands = function(grid) {
   for (let i = 0; i < m; i++) {
       for (let j = 0; j < n; j++) {
           if (grid[i][j] === '1') {
-              count++;
-      grid[i][j] = '0';
-              queue.push([i, j]);
-              while (queue.length > 0) {
-                  const [x, y] = queue.shift();
-                  for (const direction of directions) {
-                      const [dir_x, dir_y] = direction;
-                      const nbr_x = x + dir_x;  // nbr = neighbor
-                      const nbr_y = y + dir_y;
-                      if (withinBounds(nbr_x, nbr_y, m, n) && grid[nbr_x][nbr_y] === '1') {
-                          grid[nbr_x][nbr_y] = '0';
-                          queue.push([nbr_x, nbr_y]);
-                      }
-                  }
+            count++;
+            grid[i][j] = '0';
+            queue.push([i, j]);
+            while (queue.length > 0) {
+              const [x, y] = queue.shift();
+              for (const direction of directions) {
+                const [dir_x, dir_y] = direction;
+                const nbr_x = x + dir_x;  // nbr = neighbor
+                const nbr_y = y + dir_y;
+                if (withinBounds(nbr_x, nbr_y, m, n) && grid[nbr_x][nbr_y] === '1') {
+                    grid[nbr_x][nbr_y] = '0';
+                    queue.push([nbr_x, nbr_y]);
+                }
               }
+            }
           }
       }
   }

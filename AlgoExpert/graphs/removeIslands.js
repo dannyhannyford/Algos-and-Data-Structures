@@ -1,45 +1,49 @@
-// [
-//   [1, 0, 0, 0, 0, 0],
-//   [0, 1, 0, 1, 1, 1],
-//   [0, 0, 1, 0, 1, 0],
-//   [1, 1, 0, 0, 1, 0],
-//   [1, 0, 1, 1, 0, 0],
-//   [1, 0, 0, 0, 0, 1]
-// ]
+// replace islands with 0
+// C-
+// E- don't touch border
 
-// [
-//   [1, 0, 0, 0, 0, 0],
-//   [0, 0, 0, 1, 1, 1],
-//   [0, 0, 0, 0, 1, 0],
-//   [1, 1, 0, 0, 1, 0],
-//   [1, 0, 0, 0, 0, 0],
-//   [1, 0, 0, 0, 0, 1]
-// ]
+function removeIslands(matrix) {
+	for(let row = 0; row < matrix.length; row++) {
+		for(let col = 0; col < matrix[row].length; col++) {
+			const rowIsBorder = row === 0 || row === matrix.length - 1;
+			const colIsBorder = col === 0 || col === matrix[row].length - 1;
+			const isBorder = rowIsBorder || colIsBorder;
+			if (!isBorder) continue;
+			
+			if (matrix[row][col] !== 1){
+				continue;
+			} 
+			
+			dfs(matrix, row, col);
+		}
+	}
+	
+	for(let row = 0; row < matrix.length; row++) {
+		for(let col = 0; col < matrix[row].length; col++) {
+			if(matrix[row][col] === 1) {
+				matrix[row][col] = 0;
+			} else if (matrix[row][col] === 2) {
+				matrix[row][col] = 1;
+			}
+		}
+	}
+	
+  return matrix;
+}
 
-// look up,
+function dfs(matrix, y, x) {
+	// x, y
+	matrix[y][x] = 2;
+	const dirs = [[0, 1], [1, 0], [0, -1], [-1, 0]];
+	for (let k = 0; k < dirs.length; k++) {
+		let dir = dirs[k]
+		let newX = x + dir[1];
+		let newY = y + dir[0];
+		if (newX < 0 || newY < 0 || newX >= matrix[0].length || newY >= matrix.length) continue;
+		if(matrix[newY][newX] !== 1) continue;
+	  dfs(matrix, newY, newX);
+	}
+}
 
-// if one and not border,
-
-//      repeat function
-
-// if 0,
-
-// go back and change path into 0's
-
-// can we go up?
-  // check if 1
-    // check if border
-      // go back to origin+1
-
-    // repeat checking function
-  // check if 0
-    // if we checked left, then change all visited squares to 0
-    // go to origin, start going right, down, left
-    
-// [u,r,d,l]
-// loop through urdl
-  // process here
-  // if 
-// variables 
-// current origin
-// current position
+// Do not edit the line below.
+exports.removeIslands = removeIslands;
