@@ -25,3 +25,7 @@ exports.minimumWaitingTime = minimumWaitingTime;
 
 // waiting time is amount of time that 
 // it must wait before execution starts
+
+
+// queries #2
+
