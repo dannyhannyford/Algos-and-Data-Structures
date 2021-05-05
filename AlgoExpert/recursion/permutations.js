@@ -1,3 +1,5 @@
+
+// permutations of length n
 function getPermutations(array) {
   const perms = [];
   const recurse = (index, array) => {
@@ -18,3 +20,4 @@ function getPermutations(array) {
 
 // Do not edit the line below.
 exports.getPermutations = getPermutations;
+
