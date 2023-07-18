@@ -1,5 +1,5 @@
-type GraphEdge = { to: number; weight: number };
-type WeightedAdjacencyList = GraphEdge[][];
+// type GraphEdge = { to: number; weight: number };
+// type WeightedAdjacencyList = GraphEdge[][];
 
 export function dijkstrasAlgorithm(start: number, edges: number[][][]) {
   const num_of_vertices = edges.length;
@@ -14,21 +14,20 @@ export function dijkstrasAlgorithm(start: number, edges: number[][][]) {
   const min_dists_heap = new MinHeap(init_dists);
   min_dists_heap.update(start, 0);
 
-  while (!min_dists_heap.isEmpty()) {
-    const vertex_tuple: [vertex: number, curr_min_dist: number] | undefined =
-      min_dists_heap.delete();
+  while (min_dists_heap.heap.length !== 0) {
+    const vertex_tuple: [number, number] = min_dists_heap.delete()!;
 
     if (vertex_tuple === undefined) {
-      return;
+      break;
     }
     if (vertex_tuple[1] === Infinity || vertex_tuple[1] === undefined) {
       break;
     }
 
-    for (const edge of edges[vertex]) {
+    for (const edge of edges[vertex_tuple[0]]) {
       const [destination, dist_to_dest] = edge;
 
-      const new_path_dist = curr_min_dist + dist_to_dest;
+      const new_path_dist = vertex_tuple[1] + dist_to_dest;
       const curr_dest_dist = min_dists[destination];
       if (new_path_dist < curr_dest_dist) {
         min_dists[destination] = new_path_dist;
@@ -61,7 +60,6 @@ class MinHeap {
     for (let curr_idx = first_parent_idx; curr_idx >= 0; curr_idx--) {
       this.heapifyDown(curr_idx, array.length - 1, array);
     }
-    console.log(array);
     return array;
   }
 
@@ -70,7 +68,10 @@ class MinHeap {
     while (child_one_idx <= end_idx) {
       const child_two_idx = curr_idx * 2 + 2 <= end_idx ? curr_idx * 2 + 2 : -1;
       let idx_to_swap;
-      if (child_two_idx !== -1 && child_one_idx > child_two_idx) {
+      if (
+        child_two_idx !== -1 &&
+        heap[child_one_idx][1] > heap[child_two_idx][1]
+      ) {
         idx_to_swap = child_two_idx;
       } else {
         idx_to_swap = child_one_idx;
@@ -97,17 +98,20 @@ class MinHeap {
   update(vertex: number, value: number) {
     this.heap[this.vertexMap[vertex]] = [vertex, value];
     this.heapifyUp(this.vertexMap[vertex], this.heap);
+    console.log(this.vertexMap);
   }
   // not for this dijkstra's question
   // insert() {}
 
-  delete(): undefined | [number, number] {
-    if (this.heap.length !== 0) return;
+  delete(): [number, number] | undefined {
+    if (this.heap.length === 0) return;
 
-    this.swap(0, this.heap.length, this.heap);
-    const min = this.heap.pop();
+    this.swap(0, this.heap.length - 1, this.heap);
+    const [vertex, distance] = this.heap.pop()!;
+    delete this.vertexMap[vertex];
+    this.heapifyDown(0, this.heap.length - 1, this.heap);
 
-    return min;
+    return [vertex, distance];
   }
 
   peek(): [number, number] | null {
